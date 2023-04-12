@@ -77,6 +77,7 @@ const styles = StyleSheet.create({
 
   input: {
     flex: 1,
+    marginHorizontal: 5,
     color: '#fff'
   }
 

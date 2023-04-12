@@ -1,6 +1,8 @@
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { FC } from 'react';
-import { Platform, Text, View } from 'react-native';
+import { Text, View } from 'react-native';
+
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+
 import ServicesScreen from '../ServicesScreen';
 import ProfileScreen from './ProfileScreen';
 
@@ -38,7 +40,6 @@ const AppScreens: FC = () => {
           tabBarIcon: ({ focused }) => (
             <View
               style={{
-                top: Platform.OS === 'ios' ? 10 : 0,
 
               }}>
               <Ionicons name="home" size={25} color={focused ? '#135dc2' : '#ccc'} />
@@ -58,7 +59,6 @@ const AppScreens: FC = () => {
           tabBarIcon: ({ focused }) => (
             <View
               style={{
-                top: Platform.OS === 'ios' ? 10 : 0,
                 display: 'flex',
                 flexDirection: 'column',
                 alignItems: 'center'

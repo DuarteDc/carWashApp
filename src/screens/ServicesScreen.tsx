@@ -1,5 +1,5 @@
 import { View, Text, StyleSheet, Image, ScrollView, Pressable } from 'react-native';
-import { FlatGrid } from 'react-native-super-grid';
+import { SimpleGrid } from 'react-native-super-grid';
 
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
@@ -22,13 +22,22 @@ const ServicesScreen = ({ navigation }: { navigation: INavigator }) => {
     <Layout>
       <>
         <View style={{ display: 'flex', justifyContent: 'flex-start', flexDirection: 'row', alignItems: 'center' }}>
-          <Pressable onPress={() => navigation.navigate('Profile')}>
-            <Image source={require('../assets/logo.png')} alt="logo" style={{
-              width: 40,
-              height: 40,
-              aspectRatio: 1 * 1.5,
-              resizeMode: 'center'
-            }} />
+          <Pressable onPress={() => navigation.navigate('Profile')} style={{ width: 40, height: 40, borderRadius: 40 / 2, overflow: 'hidden', marginRight: 5 }}>
+            {
+              user.profile_image ? (
+                <Image source={{ uri: user.profile_image }} alt="logo" style={{
+                  width: '100%',
+                  height: '100%',
+                  resizeMode: 'cover',
+                }} />
+              ) : (
+                <Image source={require('../assets/logo-color.png')} alt="logo" style={{
+                  width: '100%',
+                  height: '100%',
+                  resizeMode: 'cover',
+                }} />
+              )
+            }
           </Pressable>
           <Text style={{ color: 'white', fontWeight: 'bold' }}>{user?.fullname}</Text>
         </View>
@@ -71,16 +80,13 @@ const ServicesScreen = ({ navigation }: { navigation: INavigator }) => {
             Servicos Top
           </Text>
         </View>
-        <ScrollView horizontal>
-          <FlatGrid
-            itemDimension={130}
-            data={a}
-            style={styles.gridView}
-            // staticDimension={300}
-            // fixed
-            spacing={10}
-            renderItem={({ item }) => (
-              <View style={[styles.itemContainer]}>
+        <View style={{flex: 1}}>
+        <SimpleGrid
+          listKey={1}
+          itemDimension={130}
+          data={a}
+          renderItem={({ item }) => (
+            <View style={[styles.itemContainer]}>
                 <Image source={require('../assets/carIndex.png')} alt="logo" style={{
                   resizeMode: 'center',
                   width: '100%',
@@ -89,9 +95,9 @@ const ServicesScreen = ({ navigation }: { navigation: INavigator }) => {
                 <Text style={styles.itemName}>Lorem ipsum dolor sit.</Text>
                 <Text style={styles.itemCode}>$300</Text>
               </View>
-            )}
-          />
-        </ScrollView>
+          )}
+        />
+        </View>
       </>
     </Layout>
   )

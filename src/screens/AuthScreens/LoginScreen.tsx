@@ -13,7 +13,8 @@ const LoginScreen = ({ navigation }: { navigation: INavigator }) => {
     
     useEffect(() => {
         GoogleSignin.configure({
-            webClientId: "31469844821-jbunp9ilg10vvla8ojd6ihr79ogu12ve.apps.googleusercontent.com"
+            webClientId: "31469844821-jbunp9ilg10vvla8ojd6ihr79ogu12ve.apps.googleusercontent.com",
+            iosClientId: "31469844821-hgl1alsjkb64r8gjdgjavqemj8rske1u.apps.googleusercontent.com"
         });
     }, [])
     
@@ -27,7 +28,8 @@ const LoginScreen = ({ navigation }: { navigation: INavigator }) => {
                         width: '100%',
                         height: '100%',
                         aspectRatio: 1 * 1.5,
-                        resizeMode: 'center'
+                        resizeMode: 'center',
+                        
                     }} />
                 </View>
                 <View>

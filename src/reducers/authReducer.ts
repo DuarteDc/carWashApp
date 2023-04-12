@@ -39,10 +39,17 @@ export const authSlice = createSlice({
         },
         startRegisterPhone:(state, action: PayloadAction<ICustomerData>) => {
             state.user = action.payload.user;
+        },
+        startChangePassword: (state, action: PayloadAction<ICustomer>) => {
+            state.user = action.payload;
+        },
+        startLogout: (state) => {
+            state.logged = false;
+            state.user   = {}
         }
     }
 })
 
-export const { startLogin, startReavlidateToken, startRegister, startGoogleLogin, startRegisterPhone } = authSlice.actions;
+export const { startLogin, startReavlidateToken, startRegister, startGoogleLogin, startRegisterPhone, startChangePassword, startLogout } = authSlice.actions;
 
 export default authSlice.reducer;

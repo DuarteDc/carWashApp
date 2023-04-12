@@ -1,16 +1,14 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
-
+import axios from 'axios';
 import { ThunkAction } from '@reduxjs/toolkit';
 import { AnyAction } from 'redux';
+
 import { RootState } from '../store';
-
-import axios from 'axios';
 import apiInstance from '../config/config';
-
 import { errorToastNotification } from '../helpers/notificaton';
 
-import { IAuthCustomer } from '../Interfaces/LoginInterface';
-import { startLogin, startReavlidateToken, startRegister, startRegisterPhone } from '../reducers/authReducer';
+import { IAuthCustomer, ICustomer } from '../Interfaces/LoginInterface';
+import { startChangePassword, startLogin, startReavlidateToken, startRegister, startRegisterPhone } from '../reducers/authReducer';
 import { IRegisterValues, ILoginValues, ILoginGoogleValues, IPhoneNumber, IVerifyCode } from '../hooks/useAuth';
 
 export const login = (values: ILoginValues): ThunkAction<object, RootState, unknown, AnyAction> =>
@@ -59,8 +57,7 @@ export const revalidateToken = (): ThunkAction<void, RootState, unknown, AnyActi
             await AsyncStorage.setItem('token', response.token);
             dispatch(startReavlidateToken({ user: response.user, logged: true, token: '' }));
         } catch (error) {
-            if (axios.isAxiosError(error)) return errorToastNotification(error.response?.data.message)
-            errorToastNotification('Parece que hubo un error, intenta más tarde')
+            console.log(error)
         }
     }
 
@@ -124,4 +121,35 @@ export const sendCodeVerification = (values: IVerifyCode): ThunkAction<object, R
                 success: false,
             }
         }
+    }
+
+    export const updateImageProfile = (values:any): ThunkAction<object, RootState, unknown, AnyAction> =>
+    async dispatch => {
+        try {
+            const token = await AsyncStorage.getItem('token') || '';
+            const response = await fetch('http://192.168.100.60:3000/api/auth/upload/profile-photo',{
+                method: 'POST',
+                headers: {
+                    "Content-Type": "multipart/form-data",
+                    "token":  token
+                },
+                body: values
+            });
+            const { data }: { data: ICustomer } = await response.json() 
+            console.log(data)
+            dispatch(startChangePassword(data))
+        } catch (error) {
+            console.log(error)
+            if (axios.isAxiosError(error)) {
+                errorToastNotification(error.response?.data.message)
+                return {
+                    success: false
+                }
+            }
+            errorToastNotification('Parece que hubo un error, intenta más tarde')
+            return {
+                success: false
+            }
+        }
+
     }

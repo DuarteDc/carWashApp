@@ -6,25 +6,27 @@ import { useAuth } from '../hooks/useAuth';
 import { INavigator } from '../Interfaces/NavigatorInterface';
 import AppScreens from "../screens/AppScreens/Index";
 import AuthScreens from "../screens/AuthScreens/Index";
-import VerifyPhone from '../screens/AuthScreens/VerifyPhone';
-import VerifyPhoneCode from '../screens/AuthScreens/VerifyPhoneCode';
+import ProfileNavigator from '../screens/AppScreens/Porfile/ProfileNavigator';
 
 const Stack = createNativeStackNavigator();
 
 const Navigator = ({ navigation }: { navigation: INavigator }): JSX.Element => {
 
-    const { startRevalidateToken, logged } = useAuth(navigation);
+    const { startRevalidateToken, logged, phoneVerified } = useAuth(navigation);
 
     useEffect(() => {
         startRevalidateToken();
-    }, [logged]);
+    }, []);
 
 
     return (
         <NavigationContainer>
             {
-                logged ? (
-                    <AppScreens />
+                logged  && phoneVerified ? (
+                    <Stack.Navigator>
+                        <Stack.Screen name="App" component={AppScreens} options={{headerShown: false}}/>
+                        <Stack.Screen name="ProfileScreens" component={ProfileNavigator} options={{headerShown: false}} />
+                    </Stack.Navigator>
                 ) : (
                     <AuthScreens />
                 )

@@ -23,7 +23,7 @@ interface InputTypes {
 
 const PhoneInput:FC<InputTypes> = ({onChange, onBlur, errors, name, phoneValue, prefixValue, onChangePrefix, onBlurPrefix}) => {
 
-    const [focus, setFocus] = useState(false);
+    const [focus, setFocus] = useState<boolean>(false);
     const [value, setValue] = useState<string>(prefixValue);
 
     return (
@@ -32,12 +32,13 @@ const PhoneInput:FC<InputTypes> = ({onChange, onBlur, errors, name, phoneValue, 
                 <CountryFlag isoCode={value} size={15} />
                 <Picker
                     selectedValue={value}
+                    mode='dropdown'
                     onValueChange={(itemValue) => {
                         setValue(itemValue);
                         onChangePrefix(`+${getCountryCallingCode(itemValue)}`)
                         }
                     }
-                    style={{ backgroundColor: '#1548a1', borderRadius: 60, marginVertical: 20, flex: 1, color: '#fff' }}
+                    style={{ backgroundColor: '#1548a1', flex: 1, color: '#fff', width: '100%' }}
                 >
                     {getCountries().map((country) => (
                         <Picker.Item
@@ -66,7 +67,7 @@ const PhoneInput:FC<InputTypes> = ({onChange, onBlur, errors, name, phoneValue, 
 
 const styles = StyleSheet.create({
     input_container: {
-        height: 80,
+        height: 60,
         marginVertical: 10,
         width: '100%',
         borderRadius: 10,
@@ -80,7 +81,6 @@ const styles = StyleSheet.create({
     input: {
         flex: 2,
         color: '#fff',
-        fontSize: 25
     },
 });
 

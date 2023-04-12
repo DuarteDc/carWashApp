@@ -1,0 +1,19 @@
+[
+
+    {
+        "name": "Mi perfil",
+        "route": "EditProfile",
+        "icon": "person"
+    },
+    {
+        "name": "Mis direcciones",
+        "route": "AddressScreen",
+        "icon": "location-sharp"
+    },
+    {
+        "name": "Historial",
+        "route": "AddressScreen",
+        "icon": "file-tray-sharp"
+    }
+
+]

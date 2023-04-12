@@ -2,6 +2,22 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>La aplicaciòn necesita permisos para su funcionamineto</string>
+	<key>NSCameraUsageDescription</key>
+	<string>Necesita acceso a la galeria</string>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>Google SignIn</key>
+			<string>31469844821-hgl1alsjkb64r8gjdgjavqemj8rske1u.apps.googleusercontent.com</string>
+		</dict>
+	</array>
+	<key>UIAppFonts</key>
+	<array>
+		<string>MaterialIcons.ttf</string>
+		<string>Ionicons.ttf</string>
+	</array>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleDisplayName</key>
