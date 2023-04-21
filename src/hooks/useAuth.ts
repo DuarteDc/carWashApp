@@ -2,7 +2,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import { GoogleSignin } from '@react-native-google-signin/google-signin';
 
-import { login, register, loginWithGoogle, revalidateToken, verifyAccount, sendCodeVerification, updateImageProfile  } from '../actions/authActions';
+import { login, register, loginWithGoogle, revalidateToken, verifyAccount, sendCodeVerification, updateImageProfile, updateUserInfo  } from '../actions/authActions';
 import { useAppDispatch, useAppSelector } from './useRedux';
 
 import { startLoading, stopLoading } from '../reducers/uiReducer';
@@ -10,7 +10,7 @@ import { startLoading, stopLoading } from '../reducers/uiReducer';
 import { ICustomer } from '../Interfaces/LoginInterface';
 import { INavigator } from '../Interfaces/NavigatorInterface';
 import { Asset } from 'react-native-image-picker';
-import { startLogout } from '../reducers/authReducer';
+import { startLogout, startValidatePhone } from '../reducers/authReducer';
 
 export interface ILoginValues {
     email: string;
@@ -37,6 +37,10 @@ export interface IVerifyCode {
 interface ISuccessFunction {
     success: boolean;
     user: ICustomer
+}
+export interface IProfile {
+    fullname    : string;
+    email       : string;
 }
 
 export const useAuth = (navigation: INavigator) => {
@@ -79,7 +83,7 @@ export const useAuth = (navigation: INavigator) => {
         dispatch(startLoading())
         const { success } = await dispatch(sendCodeVerification(data)) as ISuccessFunction;
         if (!success) return dispatch(stopLoading());
-        navigation.replace('Home')
+        dispatch(startValidatePhone())
     }
 
     const startUploadImage = async (data: Asset) => {
@@ -101,7 +105,13 @@ export const useAuth = (navigation: INavigator) => {
         dispatch(startLogout())
     }
 
-    return { startSignIn, startSignUp, startGoogleSignIn, phoneVerified, user, logged, startRevalidateToken, startVerifyAccount, sendCodeToVerifyPhone, startUploadImage, startLogoutUser }
+    const startUpdateUserInfo = async (data: IProfile) => {
+        dispatch(startLoading())
+        await dispatch(updateUserInfo(data)) as ISuccessFunction;
+        dispatch(stopLoading()); 
+    }
+
+    return { startSignIn, startSignUp, startGoogleSignIn, phoneVerified, user, logged, startRevalidateToken, startVerifyAccount, sendCodeToVerifyPhone, startUploadImage, startLogoutUser, startUpdateUserInfo }
 
 
 }

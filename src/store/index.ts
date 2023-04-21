@@ -1,10 +1,11 @@
 import { configureStore, combineReducers, applyMiddleware } from '@reduxjs/toolkit';
 import thunk from 'redux-thunk'
-import { uiSlice, authSlice } from '../reducers';
+import { uiSlice, authSlice, servicesSlice } from '../reducers';
 
 const rootReducer = combineReducers({
-    ui  :   uiSlice.reducer,
-    auth:   authSlice.reducer,
+    ui      :   uiSlice.reducer,
+    auth    :   authSlice.reducer,
+    services:   servicesSlice.reducer
 });
 
 const composedEnhancer = applyMiddleware(thunk);

@@ -2,9 +2,9 @@ import { Image, View, Text, Pressable } from 'react-native';
 
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
-import Layout from '../../ui/Layout';
 import { useAuth } from '../../hooks/useAuth';
 
+import { Layout } from '../../compopnents/ui';
 import { ICustomer } from '../../Interfaces/LoginInterface';
 import { INavigator } from '../../Interfaces/NavigatorInterface';
 

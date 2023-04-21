@@ -4,7 +4,8 @@ import { StyleSheet, View, Text, Pressable, Image } from 'react-native';
 import { GoogleSignin } from '@react-native-google-signin/google-signin';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
-import Layout from '../../ui/Layout';
+import { Layout } from '../../compopnents/ui';
+
 import FormLogin from '../../compopnents/login/FormLogin';
 import { useAuth } from '../../hooks/useAuth';
 import { INavigator } from '../../Interfaces/NavigatorInterface';

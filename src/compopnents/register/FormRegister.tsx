@@ -1,14 +1,14 @@
-import { FC } from 'react';
 
 import { Pressable, StyleSheet, Text } from 'react-native';
 
 import { Formik } from 'formik';
-import Input, { keyboardTypes } from '../../ui/Input';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
 import { IRegisterValues, useAuth } from '../../hooks/useAuth';
 import { registerValidationSchema } from '../../validations/AuthValidation';
+import { Input } from '../../compopnents/ui/'
+import { keyboardTypes } from '../../compopnents/ui/Input';
 
 const initialValues: IRegisterValues = {
     fullname: '',

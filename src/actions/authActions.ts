@@ -5,11 +5,11 @@ import { AnyAction } from 'redux';
 
 import { RootState } from '../store';
 import apiInstance from '../config/config';
-import { errorToastNotification } from '../helpers/notificaton';
+import { errorToastNotification, successToastNotification } from '../helpers/notificaton';
 
-import { IAuthCustomer, ICustomer } from '../Interfaces/LoginInterface';
-import { startChangePassword, startLogin, startReavlidateToken, startRegister, startRegisterPhone } from '../reducers/authReducer';
-import { IRegisterValues, ILoginValues, ILoginGoogleValues, IPhoneNumber, IVerifyCode } from '../hooks/useAuth';
+import { IAuthCustomer, ICustomer, ICustomerData, ICustomerResponse } from '../Interfaces/LoginInterface';
+import { startChangePassword, startLogin, startReavlidateToken, startRegister, startRegisterPhone, startUpdateProfile, startValidatePhone } from '../reducers/authReducer';
+import { IRegisterValues, ILoginValues, ILoginGoogleValues, IPhoneNumber, IVerifyCode, IProfile } from '../hooks/useAuth';
 
 export const login = (values: ILoginValues): ThunkAction<object, RootState, unknown, AnyAction> =>
     async dispatch => {
@@ -105,6 +105,7 @@ export const sendCodeVerification = (values: IVerifyCode): ThunkAction<object, R
             console.log(values)
             const { data } = await apiInstance.post('/auth/verify-code', values);
             const response: IAuthCustomer = data.data;
+            dispatch(startValidatePhone())
             return {
                 success : true,
                 user    : response.user
@@ -127,7 +128,7 @@ export const sendCodeVerification = (values: IVerifyCode): ThunkAction<object, R
     async dispatch => {
         try {
             const token = await AsyncStorage.getItem('token') || '';
-            const response = await fetch('http://192.168.100.60:3000/api/auth/upload/profile-photo',{
+            const response = await fetch('http://192.168.100.50:3000/api/auth/upload/profile-photo',{
                 method: 'POST',
                 headers: {
                     "Content-Type": "multipart/form-data",
@@ -152,4 +153,26 @@ export const sendCodeVerification = (values: IVerifyCode): ThunkAction<object, R
             }
         }
 
+    }
+
+    export const updateUserInfo = (values: IProfile): ThunkAction<object, RootState, unknown, AnyAction> =>
+    async dispatch => {
+        try {
+            const { data } = await apiInstance.patch('/auth/update-customer', values);
+            const { data : user, message}: ICustomerResponse = data;
+            dispatch(startUpdateProfile(user));
+            successToastNotification(message!);
+            return { success: true }
+        } catch (error) {
+            if (axios.isAxiosError(error)) {
+                errorToastNotification(error.response?.data.message)
+                return {
+                    success: false
+                }
+            }
+            errorToastNotification('Parece que hubo un error, intenta más tarde')
+            return {
+                success: false
+            }
+        }
     }

@@ -1,13 +1,11 @@
 
 import { Text, View, Pressable, StyleSheet, Image, Dimensions } from 'react-native';
-import Input from '../../ui/Input';
-import Layout from '../../ui/Layout';
+
 
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
-import { keyboardTypes } from '../../ui/Input';
 import FormRegister from '../../compopnents/register/FormRegister';
+import { Layout } from '../../compopnents/ui';
 
 const RegisterScreen = ({ navigation }) => {
 

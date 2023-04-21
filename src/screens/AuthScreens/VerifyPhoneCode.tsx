@@ -1,15 +1,10 @@
 import { useState } from 'react';
 import { View, Text, StyleSheet, Dimensions, Image } from 'react-native';
-import Layout from '../../ui/Layout';
 
-import { CodeField, Cursor, useBlurOnFulfill, useClearByFocusCell } from 'react-native-confirmation-code-field';
-import { useAuth } from '../../hooks/useAuth';
-import { startLoading, stopLoading } from '../../reducers/uiReducer';
-import { useDispatch } from 'react-redux';
-import { useAppDispatch } from '../../hooks/useRedux';
+import { Layout } from '../../compopnents/ui';
+
 import FormVerifyPhoneCode from '../../compopnents/verifyPhoneCode/FormVerifyPhoneCode';
 import { INavigator } from '../../Interfaces/NavigatorInterface';
-1
 
 const VerifyPhoneCode = ({ navigation }: { navigation: INavigator }) => {
 

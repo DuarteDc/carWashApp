@@ -1,12 +1,12 @@
-import React, { useEffect } from 'react';
-import { View, Image } from 'react-native';
+import React,{ useEffect } from 'react';
+import { View,Image } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import { CommonActions, } from '@react-navigation/native';
+import { CommonActions,} from '@react-navigation/native';
 
-import { useAppDispatch, useAppSelector } from '../hooks/useRedux';
+import { useAppDispatch,useAppSelector } from '../hooks/useRedux';
 
 import { revalidateToken } from '../actions/authActions';
-import Layout from '../ui/Layout';
+import { Layout } from '../compopnents/ui';
 import { useAuth } from '../hooks/useAuth';
 
 export default () => {
@@ -29,11 +29,11 @@ export default () => {
     }
     useEffect(() => {
         getSessionUser();
-    }, [logged]);
+    },[logged]);
 
     return (
         <Layout>
-            <View style={{ flex: 1, display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+            <View style={{ flex: 1,display: 'flex',justifyContent: 'center',alignItems: 'center' }}>
                 <Image source={require('../assets/logo2.png')} alt="logo" style={{
                     resizeMode: 'center'
                 }} />

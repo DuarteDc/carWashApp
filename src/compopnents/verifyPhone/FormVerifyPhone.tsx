@@ -3,10 +3,10 @@ import { Formik } from 'formik';
 
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
-import PhoneInput from '../../ui/PhoneInput';
 import { phoneNumberValidations } from '../../validations/AuthValidation';
 import { useAuth } from '../../hooks/useAuth';
 import { INavigator } from '../../Interfaces/NavigatorInterface';
+import { PhoneInput } from '../ui';
 
 const initialValues = {
     prefix: 'MX',

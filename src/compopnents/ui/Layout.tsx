@@ -1,12 +1,24 @@
+import { FC, RefObject } from 'react';
 import { StyleSheet, ScrollView, SafeAreaView, StatusBar, Dimensions, View } from 'react-native';
+
 import LinearGradient from 'react-native-linear-gradient';
+
 import { AlertNotificationRoot } from 'react-native-alert-notification';
-import LoadingScreen from '../compopnents/ui/LoadingScreen';
-import { useAppSelector } from '../hooks/useRedux';
+import { LoadingScreen } from '.';
 
-const Layout = ({ children }: { children: JSX.Element }) => {
+import { useAppSelector } from '../../hooks/useRedux';
 
-    let ScreenHeight = Dimensions.get("window").height;
+import ModalizeUI from './ModalizeUI';
+import { IHandles } from 'react-native-modalize/lib/options';
+interface ILayout { 
+    children     :  JSX.Element;
+    JSXModalize ?: JSX.Element;
+    modalizeRef ?: RefObject<IHandles>
+}
+
+const Layout: FC<ILayout> = ({ children, JSXModalize, modalizeRef }): JSX.Element => {
+
+    const ScreenHeight = Dimensions.get("window").height;
 
     const { loading } = useAppSelector((state) => state.ui);
 
@@ -21,6 +33,9 @@ const Layout = ({ children }: { children: JSX.Element }) => {
                 loading && <LoadingScreen />
             }
             <SafeAreaView style={styles.container}>
+                <ModalizeUI modalizeRef={modalizeRef}>
+                    { JSXModalize }
+                </ModalizeUI>
                 <ScrollView style={{ width: '100%', paddingHorizontal: 10, minHeight: ScreenHeight }}>
                     <AlertNotificationRoot>
                         <View style={{ width: '100%', minHeight: ScreenHeight, marginVertical: 30 }}>
@@ -44,6 +59,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         color: 'black',
         overflow: 'hidden',
+        position: 'relative',
     },
     lieneal: {
         flexWrap: 'wrap',

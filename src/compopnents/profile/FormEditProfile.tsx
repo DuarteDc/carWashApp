@@ -1,13 +1,19 @@
+import { Pressable, StyleSheet, Text } from 'react-native';
 import { Formik } from 'formik';
 
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
-import { userInfoVlidationSchema } from '../../validations/ProfileValidations';
-import { ICustomer } from '../../Interfaces/LoginInterface';
-import Input, { keyboardTypes } from '../../ui/Input';
-import { Pressable, StyleSheet, Text } from 'react-native';
+import { useAuth } from '../../hooks/useAuth';
 
-const FormEditProfile = ({ user }: { user: ICustomer }): JSX.Element => {
+import { ICustomer } from '../../Interfaces/LoginInterface';
+import { userInfoVlidationSchema } from '../../validations/ProfileValidations';
+import { INavigator } from '../../Interfaces/NavigatorInterface';
+import { Input } from '../ui';
+import { keyboardTypes } from '../ui/Input';
+
+const FormEditProfile = ({ navigation, user }: { navigation: INavigator,  user: ICustomer }): JSX.Element => {
+
+    const { startUpdateUserInfo } = useAuth(navigation);
 
     const initialValues = {
         fullname    : user.fullname,
@@ -17,7 +23,7 @@ const FormEditProfile = ({ user }: { user: ICustomer }): JSX.Element => {
     return (
         <Formik
             initialValues={initialValues}
-            onSubmit={values => console.log(values)}
+            onSubmit={values => startUpdateUserInfo(values)}
             validationSchema={userInfoVlidationSchema}
         >
             {({ handleChange, handleBlur, handleSubmit, values, errors }) => (
@@ -48,6 +54,20 @@ const FormEditProfile = ({ user }: { user: ICustomer }): JSX.Element => {
                         keyboard={keyboardTypes.emailAddress}
                         errors={errors || {}}
                     />
+                     <Input
+                        placeholder="Telefono"
+                        Icon={<Ionicons name="call" size={20} color="#fff" />}
+                        isPassword={false}
+                        name="phone"
+                        editable={false}
+                        containerInputStyle={{}}
+                        inputStyle={{}}
+                        onChange={handleChange('phone')}
+                        onBlur={handleBlur('phone')}
+                        value={`${user.phone.prefix} ${user?.phone?.phone_number}`}
+                        keyboard={keyboardTypes.numeric}
+                        errors={{}}
+                    />
                     <Pressable style={styles.buttons} onPress={handleSubmit}>
                         <Text style={{ color: 'white', fontWeight: 'bold', borderColor: 'white' }}>Actualizar</Text>
                     </Pressable>
@@ -76,8 +96,8 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         borderRadius: 20,
-        marginTop: 10,
-        maxWidth: '100%'
+        marginTop: 40,
+        maxWidth: '100%', 
     }
 });
 

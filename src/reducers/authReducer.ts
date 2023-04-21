@@ -20,12 +20,12 @@ export const authSlice = createSlice({
         startReavlidateToken: (state, action: PayloadAction<IAuthCustomer>) => {
             state.user          = action.payload.user;
             state.logged        = action.payload.logged;
-            state.phoneVerified = action.payload.user?.phone?.verified || false
+            state.phoneVerified = action.payload.user?.phone.verified || false
         },
         startLogin: (state, action: PayloadAction<IAuthCustomer>) => {
             state.user          = action.payload.user;
             state.logged        = action.payload.logged;
-            state.phoneVerified = action.payload.user?.phone?.verified || false
+            state.phoneVerified = action.payload.user?.phone.verified || false
         },
         startGoogleLogin: (state, action: PayloadAction<IAuthCustomer>) => {
             state.user          = action.payload.user;
@@ -35,7 +35,7 @@ export const authSlice = createSlice({
         startRegister: (state, action: PayloadAction<IAuthCustomer>) => {
             state.user          = action.payload.user;
             state.logged        = action.payload.logged;
-            state.phoneVerified = action.payload.user?.phone?.verified || false
+            state.phoneVerified = action.payload.user?.phone.verified || false
         },
         startRegisterPhone:(state, action: PayloadAction<ICustomerData>) => {
             state.user = action.payload.user;
@@ -43,13 +43,19 @@ export const authSlice = createSlice({
         startChangePassword: (state, action: PayloadAction<ICustomer>) => {
             state.user = action.payload;
         },
+        startUpdateProfile: (state, action: PayloadAction<ICustomer>) => { 
+            state.user = action.payload;
+        },
         startLogout: (state) => {
             state.logged = false;
             state.user   = {}
+        },
+        startValidatePhone: (state) => {
+            state.phoneVerified = true;
         }
     }
 })
 
-export const { startLogin, startReavlidateToken, startRegister, startGoogleLogin, startRegisterPhone, startChangePassword, startLogout } = authSlice.actions;
+export const { startLogin, startReavlidateToken, startRegister, startGoogleLogin, startRegisterPhone, startChangePassword, startUpdateProfile, startLogout, startValidatePhone } = authSlice.actions;
 
 export default authSlice.reducer;

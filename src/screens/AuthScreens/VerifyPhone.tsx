@@ -2,8 +2,7 @@ import React, { FC } from 'react';
 import { Pressable, Text, View, Image, Dimensions } from 'react-native';
 import FormVerifyPhone from '../../compopnents/verifyPhone/FormVerifyPhone';
 import { INavigator } from '../../Interfaces/NavigatorInterface';
-import Layout from '../../ui/Layout';
-
+import { Layout } from '../../compopnents/ui';
 
 const VerifyPhone = ({ navigation }: { navigation: INavigator }) => {
 

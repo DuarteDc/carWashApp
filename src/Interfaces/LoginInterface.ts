@@ -34,5 +34,11 @@ export interface IAuthCustomer {
 }
 
 export interface ICustomerData {
-    user    : ICustomer;
+    user        :   ICustomer;
+    message    ?:   string;
+}
+
+export interface ICustomerResponse {
+    data        :   ICustomer;
+    message    ?:   string;
 }

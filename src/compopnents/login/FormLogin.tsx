@@ -5,13 +5,12 @@ import { Formik } from 'formik';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
-import { Input } from '../../ui/Index'
-import { keyboardTypes } from '../../ui/Input';
-
 import { loginValidationSchema } from '../../validations/AuthValidation';
 
 import { ILoginValues, useAuth } from '../../hooks/useAuth';
 import { INavigator } from '../../Interfaces/NavigatorInterface';
+import { Input } from '../ui';
+import { keyboardTypes } from '../ui/Input';
 
 const initialValues: ILoginValues = {
     email: '',

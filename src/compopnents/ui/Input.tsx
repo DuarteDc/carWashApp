@@ -23,10 +23,11 @@ interface InputTypes {
   onChange              : Function;
   onBlur                : Function | void;
   value                 : string;
-  errors                : FormikErrors<string | any>
+  errors                : FormikErrors<string | any>;
+  editable             ?: boolean;
 }
 
-const Input: FC<InputTypes> = ({ placeholder, Icon, isPassword, name = '', containerInputStyle, inputStyle, keyboard, onChange, onBlur, value, errors = {} }) => {
+const Input: FC<InputTypes> = ({ placeholder, Icon, isPassword, name, containerInputStyle, inputStyle, keyboard, onChange, onBlur, value, errors = {}, editable = true }) => {
 
   const [focus, setFocus] = useState(false);
   const [show, setShow] = useState(isPassword);
@@ -46,6 +47,7 @@ const Input: FC<InputTypes> = ({ placeholder, Icon, isPassword, name = '', conta
         style={{ ...styles.input, ...inputStyle }}
         value={value}
         cursorColor="#97DECE"
+        editable={editable}
         keyboardType={keyboard}
         placeholderTextColor="#fff"
       />
