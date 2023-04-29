@@ -13,6 +13,8 @@ const ModalizeUI: FC<IModalize> = ({ children, modalizeRef }): JSX.Element => {
     <Modalize
       ref={modalizeRef}
       adjustToContentHeight
+      scrollViewProps={{ showsVerticalScrollIndicator: true }}
+      snapPoint={300}
     >
       {children}
     </Modalize>

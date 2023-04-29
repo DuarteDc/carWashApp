@@ -28,7 +28,7 @@ const Layout: FC<ILayout> = ({ children, JSXModalize, modalizeRef }): JSX.Elemen
             start={{ x: 0, y: 0 }} end={{ x: 0, y: 1 }}
             style={{ ...styles.lieneal, width: '100%' }}
         >
-            <StatusBar translucent={true} backgroundColor="transparent" />
+            <StatusBar translucent={true} backgroundColor="transparent"  />
             {
                 loading && <LoadingScreen />
             }
@@ -50,15 +50,12 @@ const Layout: FC<ILayout> = ({ children, JSXModalize, modalizeRef }): JSX.Elemen
 
 const styles = StyleSheet.create({
     container: {
-        // flex: 1,
-        flexWrap: 'wrap',
         width: '100%',
         height: '100%',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
         color: 'black',
-        overflow: 'hidden',
         position: 'relative',
     },
     lieneal: {

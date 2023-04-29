@@ -22,36 +22,48 @@ export const authSlice = createSlice({
             state.logged        = action.payload.logged;
             state.phoneVerified = action.payload.user?.phone.verified || false
         },
-        startLogin: (state, action: PayloadAction<IAuthCustomer>) => {
-            state.user          = action.payload.user;
-            state.logged        = action.payload.logged;
-            state.phoneVerified = action.payload.user?.phone.verified || false
+        startLogin: (state, action: PayloadAction<ICustomer>) => {
+            state.user          = action.payload;
+            state.logged        = true;
+            state.phoneVerified = action.payload?.phone?.verified || false
         },
         startGoogleLogin: (state, action: PayloadAction<IAuthCustomer>) => {
             state.user          = action.payload.user;
             state.logged        = action.payload.logged;
             state.phoneVerified = action.payload.user?.phone?.verified || false
         },
-        startRegister: (state, action: PayloadAction<IAuthCustomer>) => {
-            state.user          = action.payload.user;
-            state.logged        = action.payload.logged;
-            state.phoneVerified = action.payload.user?.phone.verified || false
+        startRegister: (state, action: PayloadAction<ICustomer>) => {
+            state.user          = action.payload;
+            state.logged        = true;
+            state.phoneVerified = false
         },
-        startRegisterPhone:(state, action: PayloadAction<ICustomerData>) => {
-            state.user = action.payload.user;
+        startRegisterPhone:(state, action: PayloadAction<ICustomer>) => {
+            return {
+                ...state,
+                user : action.payload,
+            }
         },
         startChangePassword: (state, action: PayloadAction<ICustomer>) => {
-            state.user = action.payload;
+            return {
+                ...state,
+                user : action.payload,
+            }
         },
         startUpdateProfile: (state, action: PayloadAction<ICustomer>) => { 
-            state.user = action.payload;
+            return{
+                ...state,
+                user : action.payload,
+            }
         },
         startLogout: (state) => {
             state.logged = false;
             state.user   = {}
         },
         startValidatePhone: (state) => {
-            state.phoneVerified = true;
+            return{
+                ...state,
+                phoneVerified: true
+            }
         }
     }
 })

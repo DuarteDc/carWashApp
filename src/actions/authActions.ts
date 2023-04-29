@@ -17,7 +17,7 @@ export const login = (values: ILoginValues): ThunkAction<object, RootState, unkn
             const { data } = await apiInstance.post('/auth/login', values);
             const response: IAuthCustomer = data.data;
             await AsyncStorage.setItem('token', response.token);
-            dispatch(startLogin({ user: response.user, logged: true, token: '' }));
+            dispatch(startLogin(response.user));
             return {
                 success: true,
                 user: response.user,
@@ -42,7 +42,7 @@ export const register = (values: IRegisterValues): ThunkAction<void, RootState, 
             const { data } = await apiInstance.post('/auth/register', values);
             const response: IAuthCustomer = data.data;
             await AsyncStorage.setItem('token', response.token);
-            dispatch(startRegister({ user: response.user, logged: true, token: '' }));
+            dispatch(startRegister(response.user));
         } catch (error) {
             if (axios.isAxiosError(error)) return errorToastNotification(error.response?.data.message)
             errorToastNotification('Parece que hubo un error, intenta más tarde')
@@ -65,9 +65,11 @@ export const loginWithGoogle = (values: ILoginGoogleValues): ThunkAction<void, R
     async dispatch => {
         try {
             const { data } = await apiInstance.post('/auth/google', values);
+            console.log(data)
             const response: IAuthCustomer = data.data;
+            console.log(response)
             await AsyncStorage.setItem('token', response.token);
-            dispatch(startLogin({ user: response.user, logged: true, token: '' }));
+            dispatch(startLogin(response.user));
         } catch (error) {
             if (axios.isAxiosError(error)) return errorToastNotification(error.response?.data.message)
             errorToastNotification('Parece que hubo un error, intenta más tarde')
@@ -79,9 +81,8 @@ export const verifyAccount = (values: IPhoneNumber): ThunkAction<object, RootSta
     async (dispatch) => {
         try {
             const { data } = await apiInstance.post('/auth/phone-number', values);
-            const response: IAuthCustomer = data.data;
-            dispatch(startRegisterPhone({ user: response.user }));
-            console.log(response)
+            const response: ICustomer = data.data;
+            dispatch(startRegisterPhone(response));
             return {
                 success: true
             }
@@ -128,7 +129,7 @@ export const sendCodeVerification = (values: IVerifyCode): ThunkAction<object, R
     async dispatch => {
         try {
             const token = await AsyncStorage.getItem('token') || '';
-            const response = await fetch('http://192.168.100.50:3000/api/auth/upload/profile-photo',{
+            const response = await fetch('http://192.168.100.66:3000/api/auth/upload/profile-photo',{
                 method: 'POST',
                 headers: {
                     "Content-Type": "multipart/form-data",

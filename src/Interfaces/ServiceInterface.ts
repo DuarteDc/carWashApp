@@ -12,3 +12,8 @@ export interface IService {
     createdAt   :   Date;
     updatedAt   :   Date;
 }
+
+export interface ILocation {
+    latitude    : number;
+    longitude    : number;
+}

@@ -15,6 +15,7 @@ export interface ICustomer {
     password        ?:   string;
     stripe_customer ?:   string;
     profile_image   ?:   string;
+    type_customer    :   string;
     google          ?:   Boolean;
     phone            :   IPhone;
     status          ?:   Boolean;

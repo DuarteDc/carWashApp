@@ -51,16 +51,8 @@ export const useAuth = (navigation: INavigator) => {
 
     const startSignIn = async (data: ILoginValues) => {
         dispatch(startLoading())
-        const { success, user: customer } = await dispatch(login(data)) as ISuccessFunction;
-
-        if (!success) return dispatch(stopLoading());
-
-        if (!customer.hasOwnProperty('phone') && !customer?.phone?.verified) {
-            navigation.replace('VerifyPhoneScreen');
-            return dispatch(stopLoading())
-        }
-        // navigation.replace('Home');
-        return dispatch(stopLoading()); 
+        await dispatch(login(data)) as ISuccessFunction;
+        dispatch(stopLoading());
     }
 
     const startSignUp = async (data: IRegisterValues) => await dispatch(register(data));
@@ -70,6 +62,7 @@ export const useAuth = (navigation: INavigator) => {
     const startGoogleSignIn = async () => {
         await GoogleSignin.hasPlayServices()
         const { idToken } = await GoogleSignin.signIn();
+        console.log(idToken)
         await dispatch(loginWithGoogle({ idToken }));
     }
 

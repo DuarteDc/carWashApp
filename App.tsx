@@ -2,6 +2,8 @@ import { useEffect } from 'react';
 import { AppState } from 'react-native';
 import { Provider } from 'react-redux';
 
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
+
 import { store } from './src/store';
 
 import { usePermissions } from './src/hooks/usePermissions';
@@ -13,7 +15,7 @@ function App(): JSX.Element {
 
   useEffect(() => {
 
-    AppState.addEventListener('change',state => {
+    AppState.addEventListener('change', state => {
       if (state !== 'active') return;
       checkLocationPermission();
     });
@@ -21,9 +23,11 @@ function App(): JSX.Element {
   },[]);
 
   return (
-    <Provider store={store}>
-      <AppScreens />
-    </Provider>
+    // <GestureHandlerRootView style={{ flex: 1 }}>
+      <Provider store={store}>
+        <AppScreens />
+      </Provider>
+    // </GestureHandlerRootView>
   )
 
 }
