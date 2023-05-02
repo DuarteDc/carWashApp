@@ -36,9 +36,9 @@ const Layout: FC<ILayout> = ({ children, JSXModalize, modalizeRef }): JSX.Elemen
                 <ModalizeUI modalizeRef={modalizeRef}>
                     { JSXModalize }
                 </ModalizeUI>
-                <ScrollView style={{ width: '100%', paddingHorizontal: 10, minHeight: ScreenHeight }}>
+                <ScrollView style={{ width: '100%', minHeight: ScreenHeight }}>
                     <AlertNotificationRoot>
-                        <View style={{ width: '100%', minHeight: ScreenHeight, marginVertical: 30 }}>
+                        <View style={{ width: '100%', minHeight: ScreenHeight, marginVertical: 30, }}>
                             {children}
                         </View>
                     </AlertNotificationRoot>
@@ -54,9 +54,7 @@ const styles = StyleSheet.create({
         height: '100%',
         display: 'flex',
         alignItems: 'center',
-        justifyContent: 'center',
-        color: 'black',
-        position: 'relative',
+        justifyContent: 'center',               
     },
     lieneal: {
         flexWrap: 'wrap',

@@ -28,7 +28,7 @@ const ProfileScreen = ({ navigation }: { navigation: INavigator }) => {
                     }}>
                         {
                             user!.profile_image ? (
-                                <Image source={{ uri: user?.profile_image }} alt="logo" style={{
+                                <Image source={{ uri: user!.profile_image }} alt="logo" style={{
                                     width: '100%',
                                     height: '100%',
                                     resizeMode: 'cover',
